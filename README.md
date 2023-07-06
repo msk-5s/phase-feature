@@ -17,5 +17,5 @@ This repository contains the source code for recreating the research in "Phase I
 : This folder contains the phase identification results for different parameters. These are the results reported in the paper.
 
 ## Running
-The `run.py` script can be used to run phase identification for a given snapshot in the year of data. `run_case.py` can be used to run phase identification across the entire year of data for different parameters. If you have access to a computing cluster, then use the `submit_job.sh`, which will run `run_case.py` as an array job via the `run_array_job.py` script. `submit_job.sh` will need to be modified for the software being used by the computing cluster (see the comments in the script).
+The `run_case.py` script can be used to run phase identification across the entire year of data for different parameters. If you have access to a computing cluster, then use the `submit_job.sh`, which will run `run_case.py` as an array job via the `run_array_job.py` script. `submit_job.sh` will need to be modified for the software being used by the computing cluster (see the comments in the script).
 > **NOTE: `run_case.py` will save results to the `results/` folder.**
