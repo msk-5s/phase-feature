@@ -1,0 +1,3 @@
+[submodule "mskutil"]
+	path = mskutil
+	url = https://github.com/msk-5s/mskutil
