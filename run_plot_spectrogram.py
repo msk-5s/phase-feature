@@ -41,7 +41,7 @@ def main(): # pylint: disable=too-many-locals
     #***********************************************************************************************
     # Set AeStHeTiCs.
     #***********************************************************************************************
-    fontsize = 40
+    fontsize = 60
     plt.rc("axes", labelsize=fontsize)
     plt.rc("axes", titlesize=fontsize)
     plt.rc("figure", titlesize=fontsize)
