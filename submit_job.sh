@@ -9,7 +9,7 @@
 # tool specific headers at line 2 above.
 
 # Run `run_array_job.py` to get the total number of cases. This will be the number of array jobs.
-# Total Suite Cases: 900
+# Total Suite Cases: 1800
 
 CASES_PER_INDEX=1
 
