@@ -24,11 +24,11 @@ class Parameters:
     random_state_base: int
 
     #***********************************************************************************************
-    # Aggregator parameters.
+    # Fuser parameters.
     #***********************************************************************************************
-    aggregator_names: Sequence[str]
+    fuser_names: Sequence[str]
 
-    run_aggregate_map: Mapping[
+    run_fuse_map: Mapping[
         str,
         Callable[[NDArray[Shape["*,*"], Float], Mapping[str, Any]], NDArray[Shape["*,*"], Float]]
     ]
@@ -107,13 +107,13 @@ parameters = Parameters(
     random_state_base=1337,
 
     #***********************************************************************************************
-    # Aggregator parameters.
+    # Fuser parameters.
     #***********************************************************************************************
-    aggregator_names=["cross_time", "mean"],
+    fuser_names=["cross_time", "mean"],
 
-    run_aggregate_map={
-        "cross_time": mu.aggregator.run_cross_time,
-        "mean": mu.aggregator.run_mean
+    run_fuse_map={
+        "cross_time": mu.fuser.run_cross_time,
+        "mean": mu.fuser.run_mean
     },
 
     #***********************************************************************************************
@@ -199,15 +199,15 @@ def make_kwargs_atlas() -> Dict[str, Dict[str, Any]]:
         The new kwargs atlas.
     """
     #***********************************************************************************************
-    # Make the aggregator kwargs.
+    # Make the fuser kwargs.
     #***********************************************************************************************
-    aggregator_kwargs_map = {
+    fuser_kwargs_map = {
         "cross_time": {"will_flip": True},
         "mean": {}
     }
 
-    # The aggregator used can affect the number of meaningful components to use in the reducers.
-    aggregator_reducer_kwargs_atlas = {
+    # The fuser used can affect the number of meaningful components to use in the reducers.
+    fuser_reducer_kwargs_atlas = {
         "cross_time": {
             "none": {},
             "pca": {"n_components": 3},
@@ -264,7 +264,7 @@ def make_kwargs_atlas() -> Dict[str, Dict[str, Any]]:
     #***********************************************************************************************
     # Make the reducer kwargs.
     #***********************************************************************************************
-    # See `aggregator_reducer_kwargs_atlas` for reducer related kwargs.
+    # See `fuser_reducer_kwargs_atlas` for reducer related kwargs.
     reducer_scaler_kwargs_map={
         "none": {},
         "pca": {},
@@ -276,8 +276,8 @@ def make_kwargs_atlas() -> Dict[str, Dict[str, Any]]:
     # Make the kwargs atlas.
     #***********************************************************************************************
     kwargs_atlas = {
-        "aggregator": aggregator_kwargs_map,
-        "aggregator_reducer_atlas": aggregator_reducer_kwargs_atlas,
+        "fuser": fuser_kwargs_map,
+        "fuser_reducer_atlas": fuser_reducer_kwargs_atlas,
         "clusterer": clusterer_kwargs_map,
         "denoiser": denoiser_kwargs_map,
         "denoiser_scaler": denoiser_scaler_kwargs_map,

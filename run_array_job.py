@@ -90,7 +90,7 @@ def main(): # pylint: disable=too-many-locals
         (days, parameters) = combinations[i]
 
         parameter_string = " ".join([
-            f"{parameters['aggregator']}",
+            f"{parameters['fuser']}",
             f"{parameters['clusterer']}",
             f"{days}",
             f"{parameters['denoiser']}",

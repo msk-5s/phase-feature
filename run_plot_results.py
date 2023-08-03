@@ -20,25 +20,25 @@ def main():
     #***********************************************************************************************
     # Set up parameters and make results.
     #***********************************************************************************************
-    stat_name = ["mean", "std"][1]
+    stat_name = ["mean", "std"][0]
     run_stat = {"mean": np.mean, "std": np.std}[stat_name]
 
-    #config = result_factory.make_aggregator_reducer_config(
+    #config = result_factory.make_fuser_reducer_config(
     #    denoiser_name = ["none", "svd"][1],
     #)
 
-    config = result_factory.make_denoiser_aggregator_config(
+    config = result_factory.make_denoiser_fuser_config(
         reducer_name = ["pca", "le", "tsne"][0]
     )
 
     #config = result_factory.make_denoiser_filterer_config(
-    #    aggregator_name = ["cross_time", "mean"][1],
-    #    reducer_name = ["pca", "le", "tsne"][0]
+    #    fuser_name=["cross_time", "mean"][1],
+    #    reducer_name=["pca", "le", "tsne"][0]
     #)
 
     #config = result_factory.make_denoiser_reducer_config(
-    #    aggregator_name = ["cross_time", "mean"][0],
-    #    filterer_name = ["difference_1", "difference_2", "ideal_0p05", "none", "unit_magnitude"][4]
+    #    fuser_name=["cross_time", "mean"][1],
+    #    filterer_name=["difference_1", "difference_2", "ideal_0p05", "none", "unit_magnitude"][0]
     #)
 
     (scores_atlas, results_atlas) = result_factory.make_results(
@@ -120,7 +120,8 @@ def main():
     axs.set_xlabel("Window Width (Days)")
     axs.set_ylabel(f"Accuracy ({stat_pretty_name})")
     axs.legend(loc="best", fontsize=40)
-    axs.set_ylim([0, 0.13])
+    #axs.set_ylim([0, 0.13])
+    axs.set_ylim([0, 1])
 
     plt.show()
 

@@ -27,8 +27,8 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
 
     Arguments
     ---------
-    aggregator_name : str
-        The name of the aggregator to use. See `research.parameters.aggregator_names` for the valid
+    fuser_name : str
+        The name of the fuer to use. See `research.parameters.fuser_names` for the valid
         names.
     clusterer_name : str
         The name of the clusterer to use. See `research.parameters.clusterer_names` for the valid
@@ -48,7 +48,7 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
 
     Examples
     --------
-    The following will run a case using the mean aggregator, kmeans clusterer, 15-day window, SVD
+    The following will run a case using the mean fuser, kmeans clusterer, 15-day window, SVD
     denoiser, ideal filter, Gaussian noise model, and PCA reducer:
 
     python3 run_case_plc.py mean kmeans 15 svd ideal_0p05 gauss pca
@@ -59,7 +59,7 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
     #***********************************************************************************************
     # Get command line arguemnts.
     #***********************************************************************************************
-    aggregator_name = str(sys.argv[1])
+    fuser_name = str(sys.argv[1])
     clusterer_name = str(sys.argv[2])
     days = int(sys.argv[3])
     denoiser_name = str(sys.argv[4])
@@ -93,10 +93,10 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
     del data_raw
 
     #***********************************************************************************************
-    # Get the aggregator and kwargs.
+    # Get the fuser and kwargs.
     #***********************************************************************************************
-    aggregator_kwargs = kwargs_atlas["aggregator"][aggregator_name]
-    run_aggregate = research.parameters.run_aggregate_map[aggregator_name]
+    fuser_kwargs = kwargs_atlas["fuser"][fuser_name]
+    run_fuse = research.parameters.run_fuse_map[fuser_name]
 
     #***********************************************************************************************
     # Get the clusterer and kwargs.
@@ -122,7 +122,7 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
     #***********************************************************************************************
     # Get the reducer and kwargs.
     #***********************************************************************************************
-    reducer_kwargs = kwargs_atlas["aggregator_reducer_atlas"][aggregator_name][reducer_name]
+    reducer_kwargs = kwargs_atlas["fuser_reducer_atlas"][fuser_name][reducer_name]
     run_reduce = research.parameters.run_reduce_map[reducer_name]
 
     reducer_scaler_kwargs = kwargs_atlas["reducer_scaler"][reducer_name]
@@ -183,9 +183,9 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
         window_raw_nds = run_filter(data=window_raw_nd, **filterer_kwargs)
         filterer_time = time.perf_counter() - filterer_time
 
-        # Aggregate the channels.
-        window_nds = run_aggregate(
-            data=window_raw_nds, channel_map=channel_map, **aggregator_kwargs
+        # Fuse the channels.
+        window_nds = run_fuse(
+            data=window_raw_nds, channel_map=channel_map, **fuser_kwargs
         )
 
         # Dimensionality reduction.
@@ -245,7 +245,7 @@ def main(): # pylint: disable=too-many-locals,too-many-statements
     filepath = "-".join([
         "results/result",
         f"{days}-days",
-        f"{aggregator_name}-aggregator",
+        f"{fuser_name}-fuser",
         f"{clusterer_name}-clusterer",
         f"{denoiser_name}-denoiser",
         f"{filterer_name}-filterer",

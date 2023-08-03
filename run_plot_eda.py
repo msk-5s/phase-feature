@@ -73,7 +73,7 @@ def main():
     denoiser_scaler_name = "normalize"
     denoiser_name = "svd"
     filterer_name = "none"
-    aggregator_name = "cross_time"
+    fuser_name = "cross_time"
     reducer_scaler_name = "standardize"
     reducer_name = "tsne"
 
@@ -120,19 +120,19 @@ def main():
     }[filterer_name]
 
     #***********************************************************************************************
-    # Select aggregator.
+    # Select fuser.
     #***********************************************************************************************
-    run_aggregate = {
-        "cross_func": mu.aggregator.run_cross_func,
-        "cross_time": mu.aggregator.run_cross_time,
-        "mean": mu.aggregator.run_mean
-    }[aggregator_name]
+    run_fuse = {
+        "cross_func": mu.fuser.run_cross_func,
+        "cross_time": mu.fuser.run_cross_time,
+        "mean": mu.fuser.run_mean
+    }[fuser_name]
 
-    aggregator_kwargs = {
+    fuser_kwargs = {
         "cross_func": {"will_flip": True},
         "cross_time": {"will_flip": True},
         "mean": {}
-    }[aggregator_name]
+    }[fuser_name]
 
     #***********************************************************************************************
     # Select reducer.
@@ -167,7 +167,7 @@ def main():
     data_raw_n = run_denoiser_scale(data=data_raw_n, **denoiser_scaler_kwargs)
     data_raw_nd = run_denoise(data=data_raw_n, **denoiser_kwargs).data
     data_raw_nds = run_filter(data=data_raw_nd, **filterer_kwargs)
-    data_nds = run_aggregate(data=data_raw_nds, channel_map=channel_map, **aggregator_kwargs)
+    data_nds = run_fuse(data=data_raw_nds, channel_map=channel_map, **fuser_kwargs)
 
     #***********************************************************************************************
     # Select a subset of the data based on meter channels.

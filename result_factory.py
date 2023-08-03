@@ -10,13 +10,13 @@ import json
 
 import sklearn.metrics
 
-_aggregator_graphics_atlas = {
+_fuser_graphics_atlas = {
     "colors": {"cross_time": "blue", "cross_time_difference": "black", "mean": "red"},
     "markers": {"cross_time": "o", "cross_time_difference": "v", "mean": "X"},
     "linestyles": {"cross_time": "solid", "cross_time_difference": "dotted", "mean": "dashed"}
 }
 
-_aggregator_pretty_names = {
+_fuser_pretty_names = {
     "cross_time": "Cross-Product (Time)",
     "cross_time_difference": "Cross-Product (Time) + Filter",
     "mean": "Mean"
@@ -90,9 +90,9 @@ class Config(NamedTuple):
 
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
-def make_aggregator_reducer_config(denoiser_name: str) -> Dict[str, Dict[str, str]]:
+def make_fuser_reducer_config(denoiser_name: str) -> Dict[str, Dict[str, str]]:
     """
-    Make the configuration that compares the different reducers with aggregated data.
+    Make the configuration that compares the different reducers with fused data.
 
     Parameters
     ----------
@@ -107,31 +107,31 @@ def make_aggregator_reducer_config(denoiser_name: str) -> Dict[str, Dict[str, st
     subfilenames = {
         "mean": {
             "pca":
-                f"mean-aggregator-kmeans-clusterer-{denoiser_name}-denoiser-unit_magnitude-" +\
+                f"mean-fuser-kmeans-clusterer-{denoiser_name}-denoiser-unit_magnitude-" +\
                 "filterer-gauss_0p002-noise_injector-pca-reducer",
             "le":
-                f"mean-aggregator-kmeans-clusterer-{denoiser_name}-denoiser-unit_magnitude-" +\
+                f"mean-fuser-kmeans-clusterer-{denoiser_name}-denoiser-unit_magnitude-" +\
                 "filterer-gauss_0p002-noise_injector-le-reducer",
             "tsne":
-                f"mean-aggregator-kmeans-clusterer-{denoiser_name}-denoiser-difference_2-" +\
+                f"mean-fuser-kmeans-clusterer-{denoiser_name}-denoiser-difference_2-" +\
                 "filterer-gauss_0p002-noise_injector-tsne-reducer"
         },
         "cross_time": {
             "pca":
-                f"cross_time-aggregator-kmeans-clusterer-{denoiser_name}-denoiser-" +\
+                f"cross_time-fuser-kmeans-clusterer-{denoiser_name}-denoiser-" +\
                 "difference_2-filterer-gauss_0p002-noise_injector-pca-reducer",
             "le":
-                f"cross_time-aggregator-kmeans-clusterer-{denoiser_name}-denoiser-" +\
+                f"cross_time-fuser-kmeans-clusterer-{denoiser_name}-denoiser-" +\
                 "difference_2-filterer-gauss_0p002-noise_injector-le-reducer",
             "tsne":
-                f"cross_time-aggregator-kmeans-clusterer-{denoiser_name}-denoiser-" +\
+                f"cross_time-fuser-kmeans-clusterer-{denoiser_name}-denoiser-" +\
                 "none-filterer-gauss_0p002-noise_injector-tsne-reducer"
         }
     }
 
     # pylint: disable=consider-iterating-dictionary
-    linestyles = {key: _aggregator_graphics_atlas["linestyles"][key] for key in subfilenames.keys()}
-    pretty_names = {key: _aggregator_pretty_names[key] for key in subfilenames.keys()}
+    linestyles = {key: _fuser_graphics_atlas["linestyles"][key] for key in subfilenames.keys()}
+    pretty_names = {key: _fuser_pretty_names[key] for key in subfilenames.keys()}
 
     config = Config(
         colors=_reducer_graphics_atlas["colors"],
@@ -146,9 +146,9 @@ def make_aggregator_reducer_config(denoiser_name: str) -> Dict[str, Dict[str, st
 
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
-def make_denoiser_aggregator_config(reducer_name: str) -> Dict[str, Dict[str, str]]:
+def make_denoiser_fuser_config(reducer_name: str) -> Dict[str, Dict[str, str]]:
     """
-    Make the configuration that compares the aggregators with noise/denoised data.
+    Make the configuration that compares the fusers with noise/denoised data.
 
     Parameters
     ----------
@@ -163,34 +163,34 @@ def make_denoiser_aggregator_config(reducer_name: str) -> Dict[str, Dict[str, st
     subfilenames = {
         "none": {
             "cross_time":
-                "cross_time-aggregator-kmeans-clusterer-none-denoiser-none-filterer-" +\
+                "cross_time-fuser-kmeans-clusterer-none-denoiser-none-filterer-" +\
                 f"gauss_0p002-noise_injector-{reducer_name}-reducer",
             "cross_time_difference":
-                "cross_time-aggregator-kmeans-clusterer-none-denoiser-difference_2-filterer-" +\
+                "cross_time-fuser-kmeans-clusterer-none-denoiser-difference_2-filterer-" +\
                 f"gauss_0p002-noise_injector-{reducer_name}-reducer",
             "mean":
-                "mean-aggregator-kmeans-clusterer-none-denoiser-unit_magnitude-filterer-" +\
+                "mean-fuser-kmeans-clusterer-none-denoiser-unit_magnitude-filterer-" +\
                 f"gauss_0p002-noise_injector-{reducer_name}-reducer"
         },
         "svd": {
             "cross_time":
-                "cross_time-aggregator-kmeans-clusterer-svd-denoiser-none-filterer-" +\
+                "cross_time-fuser-kmeans-clusterer-svd-denoiser-none-filterer-" +\
                 f"gauss_0p002-noise_injector-{reducer_name}-reducer",
             "cross_time_difference":
-                "cross_time-aggregator-kmeans-clusterer-svd-denoiser-difference_2-filterer-" +\
+                "cross_time-fuser-kmeans-clusterer-svd-denoiser-difference_2-filterer-" +\
                 f"gauss_0p002-noise_injector-{reducer_name}-reducer",
             "mean":
-                "mean-aggregator-kmeans-clusterer-svd-denoiser-unit_magnitude-filterer-" +\
+                "mean-fuser-kmeans-clusterer-svd-denoiser-unit_magnitude-filterer-" +\
                 f"gauss_0p002-noise_injector-{reducer_name}-reducer"
         }
     }
 
     config = Config(
-        colors=_aggregator_graphics_atlas["colors"],
+        colors=_fuser_graphics_atlas["colors"],
         linestyles=_denoiser_graphics_atlas["linestyles"],
-        markers=_aggregator_graphics_atlas["markers"],
+        markers=_fuser_graphics_atlas["markers"],
         primary_pretty_names=_denoiser_pretty_names,
-        secondary_pretty_names=_aggregator_pretty_names,
+        secondary_pretty_names=_fuser_pretty_names,
         subfilenames=subfilenames
     )
 
@@ -199,15 +199,15 @@ def make_denoiser_aggregator_config(reducer_name: str) -> Dict[str, Dict[str, st
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 def make_denoiser_filterer_config(
-    aggregator_name: str, reducer_name: str
+    fuser_name: str, reducer_name: str
 ) -> Dict[str, Dict[str, str]]:
     """
     Make the configuration that compares the different filters with noise/denoised data.
 
     Parameters
     ----------
-    aggregator_name : str
-        The name of the aggregator to use.
+    fuser_name : str
+        The name of the fuser to use.
     reducer_name : str
         The name of the reducer to use.
 
@@ -219,36 +219,36 @@ def make_denoiser_filterer_config(
     subfilenames = {
         "none": {
             "difference_1":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-difference_1-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-difference_1-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "difference_2":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-difference_2-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-difference_2-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "ideal_0p05":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-ideal_0p05-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-ideal_0p05-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "none":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-none-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-none-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "unit_magnitude":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-unit_magnitude-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-unit_magnitude-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
         },
         "svd": {
             "difference_1":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-difference_1-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-difference_1-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "difference_2":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-difference_2-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-difference_2-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "ideal_0p05":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-ideal_0p05-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-ideal_0p05-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "none":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-none-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-none-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
             "unit_magnitude":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-unit_magnitude-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-unit_magnitude-" +\
                 f"filterer-gauss_0p002-noise_injector-{reducer_name}-reducer",
         }
     }
@@ -267,15 +267,15 @@ def make_denoiser_filterer_config(
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 def make_denoiser_reducer_config(
-    aggregator_name: str, filterer_name: str
+    fuser_name: str, filterer_name: str
 ) -> Dict[str, Dict[str, str]]:
     """
     Make the configuration that compares the different reducers with noise/denoised data.
 
     Parameters
     ----------
-    aggregator_name : str
-        The name of the aggregator to use.
+    fuser_name : str
+        The name of the fuser to use.
     filterer_name : str
         The name of the filterer to use.
 
@@ -287,24 +287,24 @@ def make_denoiser_reducer_config(
     subfilenames = {
         "none": {
             "pca":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-" +\
                 f"{filterer_name}-filterer-gauss_0p002-noise_injector-pca-reducer",
             "le":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-" +\
                 f"{filterer_name}-filterer-gauss_0p002-noise_injector-le-reducer",
             "tsne":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-none-denoiser-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-none-denoiser-" +\
                 f"{filterer_name}-filterer-gauss_0p002-noise_injector-tsne-reducer",
         },
         "svd": {
             "pca":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-" +\
                 f"{filterer_name}-filterer-gauss_0p002-noise_injector-pca-reducer",
             "le":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-" +\
                 f"{filterer_name}-filterer-gauss_0p002-noise_injector-le-reducer",
             "tsne":
-                f"{aggregator_name}-aggregator-kmeans-clusterer-svd-denoiser-" +\
+                f"{fuser_name}-fuser-kmeans-clusterer-svd-denoiser-" +\
                 f"{filterer_name}-filterer-gauss_0p002-noise_injector-tsne-reducer",
         }
     }

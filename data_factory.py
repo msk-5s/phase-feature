@@ -26,9 +26,9 @@ def make_data_raw() -> Tuple[NDArray[Shape["*,*"], Float], List[Tuple[str, List[
     data : numpy.ndarray of float, (n_timestep, n_meter_channel)
         The raw load voltage magnitude data.
     channel_map : dict of {str: list of int}
-        The list of channel indices for each meter. These mappings are used to aggregate multiple
-        meter channels. Each item in the mapping will be {meter_name: list of channel indices},
-        where the indices are the columns in the returned data.
+        The list of channel indices for each meter. These mappings are used to fuse multiple meter
+        channels. Each item in the mapping will be {meter_name: list of channel indices}, where the
+        indices are the columns in the returned data.
     """
     data_df = pyarrow.feather.read_feather(
         f"data/{research.parameters.circuit_name}-load-voltage_magnitudes-raw.feather"
