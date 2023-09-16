@@ -66,8 +66,8 @@ def main(): # pylint: disable=too-many-locals
 
     fig.tight_layout()
     fig_s.tight_layout()
-    fig_a.tight_layout()
-    fig_as.tight_layout()
+    #fig_a.tight_layout()
+    #fig_as.tight_layout()
 
     axs.plot(series, linewidth=3)
     axs_s.plot(series_s, linewidth=3)
@@ -75,7 +75,7 @@ def main(): # pylint: disable=too-many-locals
     axs.set_xlabel("Timestep (15-min)")
     axs.set_ylabel("Voltage (V)")
     axs_s.set_xlabel("Timestep (15-min)")
-    axs_s.set_xlabel("Voltage (V)")
+    axs_s.set_ylabel("Voltage (V)")
 
     plt.show()
 
