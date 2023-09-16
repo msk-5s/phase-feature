@@ -239,7 +239,7 @@ def make_kwargs_atlas() -> Dict[str, Dict[str, Any]]:
 
     denoiser_scaler_kwargs_map = {
         "none": {},
-        "svd": {"feature_range": [0, 1]}
+        "svd": {"feature_range": (0, 1)}
     }
 
     #***********************************************************************************************

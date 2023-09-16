@@ -34,7 +34,7 @@ def main():
     #***********************************************************************************************
     # Make noise parameters.
     #***********************************************************************************************
-    base_kv_partials = (0.01 * base_kvs)
+    base_kv_partials = 0.01 * base_kvs
 
     centers_list = [[-value, value] for value in base_kv_partials]
     percents_list = [[0.002, 0.002] for _ in range(len(base_kv_partials))]
@@ -86,7 +86,7 @@ def main():
     }[denoiser_scaler_name]
 
     denoiser_scaler_kwargs = {
-        "normalize": {"feature_range": [0, 1]},
+        "normalize": {"feature_range": (0, 1)},
         "standardize": {}
     }[denoiser_scaler_name]
 
@@ -143,7 +143,7 @@ def main():
     }[reducer_scaler_name]
 
     reducer_scaler_kwargs = {
-        "normalize": {"feature_range": [0, 1]},
+        "normalize": {"feature_range": (0, 1)},
         "standardize": {}
     }[reducer_scaler_name]
 
