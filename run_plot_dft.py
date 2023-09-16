@@ -41,7 +41,7 @@ def main():
     data_raw = data_raw[0:(start + width), :]
 
     #***********************************************************************************************
-    # Perform denoising using MxN resampling.
+    # Perform denoising.
     #***********************************************************************************************
     # Inject 0.02% Gaussian noise into the data window.
     data_n_raw = mu.noise_injector.inject_gauss(
