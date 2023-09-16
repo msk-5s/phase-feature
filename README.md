@@ -1,6 +1,6 @@
 # **phase-feature**
 
-This repository contains the source code for recreating the research in "Phase Identification in Power Distribution Systems via Feature Engineering" (currently in second round of review). The dataset can be downloaded from [Kaggle](https://www.kaggle.com/msk5sdata/arima-ercot-2021). Alternatively, the dataset in this work can be recreated from scratch using the [arima-ercot-2021-profile](https://github.com/msk-5s/arima-ercot-2021-profile.git) and [arima-ercot-2021-opendss](https://github.com/msk-5s/arima-ercot-2021-opendss.git) repositories.
+This repository contains the source code for recreating the research in "Phase Identification in Power Distribution Systems via Feature Engineering" (currently in third round of review). The dataset can be downloaded from [Kaggle](https://www.kaggle.com/msk5sdata/arima-ercot-2021). Alternatively, the dataset in this work can be recreated from scratch using the [arima-ercot-2021-profile](https://github.com/msk-5s/arima-ercot-2021-profile.git) and [arima-ercot-2021-opendss](https://github.com/msk-5s/arima-ercot-2021-opendss.git) repositories.
 
 ## Requirements
     - Python 3.8+ (64-bit)
