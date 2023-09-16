@@ -220,7 +220,7 @@ def main():
     plt.rc("font", **font)
 
     #***********************************************************************************************
-    # Plot correlation matrices.
+    # Plot the correlation matrix and scatter plot.
     #***********************************************************************************************
     (_, axs_corr, cbar) = mu.plot_factory.make_correlation_heatmap(
         data=data_nds, labels=labels_phase, cmap="afmhot"
