@@ -11,7 +11,7 @@ This repository contains the source code for recreating the research in "Phase I
 : The `lvna` dataset from the [arima-ercot-2021](https://www.kaggle.com/msk5sdata/arima-ercot-2021) data suite should be placed in this folder.
 
 `mskutil/`
-: The [mskutil](https://github.com/msk-5s/mskutil) repository as a submodule. After cloning this repository, use the following to pull the submodule:
+: The [mskutil](https://github.com/msk-5s/mskutil) repository as a submodule. After cloning this `phase-feature` repository, use the following to pull the `mskutil` submodule:
 ```
 git submodule update --init --recursive
 ```
