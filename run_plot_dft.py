@@ -38,7 +38,7 @@ def main():
 
     (data_raw, channel_map) = data_factory.make_data_raw()
 
-    data_raw = data_raw[0:(start + width), :]
+    data_raw = data_raw[start:(start + width), :]
 
     #***********************************************************************************************
     # Perform denoising.
